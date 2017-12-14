@@ -1,0 +1,104 @@
+.custom-ribbon {
+  width: 100%;
+  height: 40vh;
+  background-color: #ff9800;
+  flex-shrink: 0;
+}
+
+.custom-main {
+  margin-top: -35vh;
+  flex-shrink: 0;
+}
+
+.custom-header .mdl-layout__header-row {
+  padding-left: 40px;
+}
+
+.custom-container {
+  max-width: 1600px;
+  width: calc(100% - 16px);
+  margin: 0 auto;
+}
+
+.custom-content {
+  border-radius: 2px;
+  padding: 0 28px 40px 28px;
+  margin-bottom: 80px;
+}
+
+tbody td {
+  cursor: pointer;
+  white-space: normal;
+}
+
+.w-4em {
+  width: 3.8em
+}
+
+tfoot {
+  font-size: 16px;
+}
+
+tfoot .mdl-textfield {
+  padding: 20px 0 0 0;
+}
+
+tfoot .mdl-textfield__label::after {
+  bottom: 0;
+}
+
+#itemAddBtn {
+  position: fixed;
+  display: block;
+  right: 0;
+  bottom: 0;
+  margin-right: calc(50% - 28px);
+  margin-bottom: 40px;
+  z-index: 900;
+  transition: opacity 0.6s linear;
+}
+
+.hidden {
+  display: none;
+}
+
+.visually-hidden {
+  opacity: 0;
+}
+
+.mdl-dialog .mdl-textfield {
+  width: 100%;
+}
+
+dialog {
+  z-index: 999;
+}
+
+button>svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-12px,-12px);
+  transform: translate(-12px,-12px);
+  line-height: 24px;
+  width: 24px;
+}
+
+@media only screen and (max-width: 411px) {
+  .custom-content {
+    padding: 0;
+    padding-bottom: 24px;
+  }
+  .custom-content h4 {
+    margin-left: 28px
+  }
+}
+
+@media only screen and (max-width: 359px) {
+  .mdl-data-table th {
+    padding: 0;
+  }
+  tfoot {
+    font-size: 13px;
+  }
+}

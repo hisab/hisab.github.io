@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Hisab - What's the damage?</title>
+  <meta name="description" content="A dead simple bookmark manager.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/icon.png">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-red.min.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://cdn.rawgit.com/GoogleChrome/dialog-polyfill/bdc12f9d/dialog-polyfill.js"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+
+<body>
+  <!--[if IE]>
+            <p>Your Browser Is Not Supported! ¯\_(ツ)_/¯</p>
+        <![endif]-->
+  <div id="mainContainer" class="custom-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+    <div class="custom-ribbon"></div>
+    <main class="custom-main mdl-layout__content">
+      <div class="custom-container mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+        <div class="custom-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+          <h4>What's the damage?</h4>
+          <table class="custom-container mdl-data-table mdl-js-data-table">
+            <thead>
+              <tr>
+                <th>Particular</th>
+                <th>Rate</th>
+                <th>Qty</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="3">Gross Total</td>
+                <td id="grossTotal">0</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <div class="w-4em mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" name="sc" id="scInput" step="0.01" value="0">
+                    <label class="mdl-textfield__label" for="scInput">SC (%)</label>
+                  </div>
+                </td>
+                <td id="sc">0</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <div class="w-4em mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" name="vat" id="vatInput" step="0.01" value="0">
+                    <label class="mdl-textfield__label" for="vatInput">VAT (%)</label>
+                  </div>
+                </td>
+                <td id="vat">0</td>
+              </tr>
+              <tr class="strong">
+                <td colspan="3">
+                  <strong>Net Total</strong>
+                </td>
+                <td id="netTotal">0</td>
+              </tr>
+            </tfoot>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <button id="itemAddBtn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Item">
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="#ffffff" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+    </svg>
+  </button>
+  <dialog id="itemDialog" class="mdl-dialog mdl-cell--6-col">
+    <h4 class="mdl-dialog__title" id="addEdit">Add</h4>
+    <div class="mdl-dialog__content">
+      <form id="itemForm">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" name="particular" id="particularInput" required>
+          <label class="mdl-textfield__label" for="particularInput">Particular</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="number" name="rate" step="0.01" id="rateInput" required>
+          <label class="mdl-textfield__label" for="rateInput">Rate</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="number" step="0.5" name="qty" id="qtyInput" required>
+          <label class="mdl-textfield__label" for="qtyInput">Quantity</label>
+        </div>
+      </form>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button id="cancelBtn" type="button" class="mdl-button close">Cancel</button>
+      <button id="saveBtn" type="button" class="mdl-button">Save</button>
+      <button id="removeBtn" type="button" class="mdl-button mdl-button--accent">Remove</button>
+    </div>
+  </dialog>
+
+  <script>
+    "serviceWorker" in navigator && (navigator.serviceWorker.register("/service-worker.js", {
+      scope: "/"
+    }).then(function (e) {
+      console.log("Service Worker Registered")
+    }), navigator.serviceWorker.ready.then(function (e) {
+      console.log("Service Worker Ready")
+    }))
+
+  </script>
+</body>
+
+</html>

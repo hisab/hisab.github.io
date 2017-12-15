@@ -138,7 +138,8 @@
     showItemDialog()
   }
 
-  function showItemDialog () {
+  function showItemDialog (e) {
+    if (e && e.target === $itemAddBtn) $qtyInput.value = 1
     $itemDialog.showModal()
   }
 

@@ -102,3 +102,9 @@ button>svg {
     font-size: 13px;
   }
 }
+
+@media (max-width: 479px) {
+  .mdl-dialog.mdl-cell--6-col {
+    width: calc(100% - 78px);
+  }
+}

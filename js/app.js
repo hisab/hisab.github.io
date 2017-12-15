@@ -139,7 +139,7 @@
   }
 
   function showItemDialog (e) {
-    if (e && e.target === $itemAddBtn) {
+    if (e && e.target.parentElement === $itemAddBtn) {
       $qtyInput.value = 1
       fixMDLInput($qtyInput)
     }

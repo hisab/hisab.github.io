@@ -103,6 +103,9 @@ button>svg {
   .custom-content h4 {
     margin-left: 28px
   }
+  .mdl-dialog__actions {
+    padding: 0;
+  }
 }
 
 @media only screen and (max-width: 359px) {

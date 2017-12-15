@@ -2,7 +2,6 @@
   const $ = selector => document.querySelector(selector)
 
   let items = parseJSON(localStorage.getItem('items')) || []
-  let lastUpdate = localStorage.getItem('items') || Date.now()
 
   const $itemAddBtn = $('#itemAddBtn')
   const $itemDialog = $('#itemDialog')
@@ -26,10 +25,15 @@
 
   let editIndex = null
   let lastScrollTop = 0
+  let longPressTimer
+  const isTouch = 'ontouchstart' in document.documentElement
 
   init()
 
-  $itemAddBtn.addEventListener('click', showItemDialog)
+  $itemAddBtn.addEventListener(isTouch ? 'touchstart' : 'mousedown', addBtnPressStarthandler)
+  $itemAddBtn.addEventListener(isTouch ? 'touchmove' : 'mouseout', addBtnPressStophandler)
+  $itemAddBtn.addEventListener(isTouch ? 'touchend' : 'mouseup', addBtnPressStophandler)
+
   $cancelBtn.addEventListener('click', hideItemDialog)
   $itemForm.addEventListener('submit', saveItemHandler)
   $saveBtn.addEventListener('click', saveItemHandler)
@@ -42,8 +46,6 @@
   })
 
   function init () {
-    if (Date.now() - lastUpdate >= 3 * 3600000 && confirm('Clear previous entries?')) localStorage.clear()
-
     $scInput.value = localStorage.getItem('sc') || 0
     $vatInput.value = localStorage.getItem('vat') || 0
 
@@ -90,7 +92,6 @@
     localStorage.setItem('items', JSON.stringify(items))
     localStorage.setItem('sc', $scInput.value)
     localStorage.setItem('vat', $vatInput.value)
-    localStorage.setItem('lastUpdate', Date.now())
   }
 
   function saveItemHandler () {
@@ -135,15 +136,6 @@
 
     $addEdit.innerText = 'Edit'
     showElement($removeBtn)
-    showItemDialog()
-  }
-
-  function showItemDialog (e) {
-    if (e && e.target.parentElement === $itemAddBtn) {
-      $qtyInput.value = 1
-      fixMDLInput($qtyInput)
-    }
-
     $itemDialog.showModal()
   }
 
@@ -195,5 +187,36 @@
 
   function roundNumber (num) {
     return Math.round(num * 100) / 100
+  }
+
+  function addBtnPressStarthandler () {
+    const time = 500
+    longPressTimer = setTimeout(() => {
+      clearTimeout(longPressTimer)
+      longPressTimer = null
+      $itemAddBtn.classList.add('rotated')
+      setTimeout(() => {
+        if (confirm('Clear all records?')) {
+          items = []
+          $scInput.value = $vatInput.value = 0
+          fixMDLInput($scInput, $vatInput)
+          localStorage.clear()
+          renderItems()
+        }
+        $itemAddBtn.classList.remove('rotated')
+      }, time)
+    }, time)
+  }
+
+  function addBtnPressStophandler () {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer)
+      longPressTimer = null
+
+      $qtyInput.value = 1
+      fixMDLInput($qtyInput)
+
+      $itemDialog.showModal()
+    }
   }
 })()

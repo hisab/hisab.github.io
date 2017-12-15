@@ -139,7 +139,11 @@
   }
 
   function showItemDialog (e) {
-    if (e && e.target === $itemAddBtn) $qtyInput.value = 1
+    if (e && e.target === $itemAddBtn) {
+      $qtyInput.value = 1
+      fixMDLInput($qtyInput)
+    }
+
     $itemDialog.showModal()
   }
 
